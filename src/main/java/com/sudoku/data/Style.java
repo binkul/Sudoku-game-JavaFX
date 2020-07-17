@@ -6,7 +6,7 @@ public class Style {
                         "    -fx-background-size: stretch;" +
                         "    -fx-fx-alignment: center;";
     public static final String MAIN_VIEW_BLUE =
-                        "    -fx-background-color: lightskyblue;" +
+                        "    -fx-background-color: lightcyan;" +
                         "    -fx-background-size: stretch;" +
                         "    -fx-fx-alignment: center;";
     public static final String BTN_STYLE =

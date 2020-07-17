@@ -17,11 +17,15 @@ public class SudokuField extends Canvas {
         super(SudokuData.DIMENSION, SudokuData.DIMENSION);
         this.userInterface = userInterface;
         this.game = game;
+        initField();
     }
 
     private void initField() {
-        getGraphicsContext2D().getCanvas().addEventHandler(MouseEvent.MOUSE_PRESSED, this::enterMousePressed);
-
+        if (game != null) {
+            getGraphicsContext2D().getCanvas().addEventHandler(MouseEvent.MOUSE_PRESSED, this::enterMousePressed);
+            getGraphicsContext2D().getCanvas().addEventHandler(MouseEvent.MOUSE_MOVED, this::enterMouseMove);
+            getGraphicsContext2D().getCanvas().addEventHandler(MouseEvent.MOUSE_EXITED, this::exitMouse);
+        }
     }
 
     @Override
@@ -40,6 +44,19 @@ public class SudokuField extends Canvas {
         userInterface.press(event);
     }
 
+    private void enterMouseMove(MouseEvent event) {
+        event.consume();
+        if (userInterface == null) return;
+
+        userInterface.moveOver(event);
+    }
+
+    private void exitMouse(MouseEvent event) {
+        event.consume();
+        if (userInterface == null) return;
+
+        userInterface.exited(event);
+    }
 
     public void enterKeyPressed(KeyEvent event) {
         event.consume();
@@ -47,5 +64,4 @@ public class SudokuField extends Canvas {
 
         userInterface.moveOver(event);
     }
-
 }
