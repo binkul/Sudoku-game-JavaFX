@@ -1,6 +1,6 @@
 package com.sudoku.data;
 
-public class SudokuData {
+public class Data {
     public final static int TEXT_X_START = 13;
     public final static int TEXT_Y_START = 44;
 

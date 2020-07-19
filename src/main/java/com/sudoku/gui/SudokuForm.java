@@ -2,7 +2,7 @@ package com.sudoku.gui;
 
 import com.sudoku.data.FileData;
 import com.sudoku.data.Style;
-import com.sudoku.data.SudokuData;
+import com.sudoku.data.Data;
 import com.sudoku.file.PathDriver;
 import com.sudoku.game.Game;
 import javafx.geometry.Pos;
@@ -43,15 +43,15 @@ public class SudokuForm {
 
         // main scene
         BorderPane root  = new BorderPane();
-        root.setPrefSize(SudokuData.WINDOW_WIDTH, SudokuData.WINDOW_HEIGHT);
+        root.setPrefSize(Data.WINDOW_WIDTH, Data.WINDOW_HEIGHT);
         root.setStyle(Style.MAIN_VIEW_BLUE);
 
         // left, right
         VBox leftBox = new VBox();
-        leftBox.setPrefWidth(SudokuData.MARGIN);
+        leftBox.setPrefWidth(Data.MARGIN);
         root.setLeft(leftBox);
         VBox rightBox = new VBox();
-        rightBox.setPrefWidth(SudokuData.MARGIN);
+        rightBox.setPrefWidth(Data.MARGIN);
         root.setRight(rightBox);
 
         // center

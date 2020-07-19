@@ -1,8 +1,9 @@
 package com.sudoku.user;
 
-import com.sudoku.data.SudokuData;
+import com.sudoku.data.Data;
 import com.sudoku.game.Game;
 import com.sudoku.gui.NumberForm;
+import com.sudoku.solver.Validator;
 import javafx.scene.input.MouseEvent;
 
 public class Mouse implements UserInterface {
@@ -11,9 +12,11 @@ public class Mouse implements UserInterface {
     private int x, y;
     private int x_old = -1;
     private int y_old = -1;
+    private Integer value;
 
     public Mouse(Game game) {
         this.game = game;
+        this.value = 0;
     }
 
     @Override
@@ -21,13 +24,12 @@ public class Mouse implements UserInterface {
         if (isMouseValid(event)) return;
 
         int number = game.getSudoku()[x][y];
+        boolean[] numbers = Validator.getUniqueNumbers(game.getSudoku(), x, y);
 
-        String answer = NumberForm.show(number);
-        if (answer.length() > 0 && !answer.equals("Remove")) {
-            game.getSudoku()[x][y] = Integer.parseInt(answer);
-        } else {
-            game.getSudoku()[x][y] = 0;
-        }
+        NumberForm numberForm = new NumberForm(numbers, this);
+        value = 0;
+        numberForm.open();
+        game.getSudoku()[x][y] = value;
         game.getGraphicDriver().drawCrossBar(game.getSudokuField().getCanvas(), x, y);
     }
 
@@ -51,9 +53,14 @@ public class Mouse implements UserInterface {
         y_old = -1;
     }
 
+    @Override
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
     private boolean isOnTile(MouseEvent event) {
-        int x_dif = (int)event.getY() % SudokuData.TILE_DIMENSION;
-        int y_dif = (int)event.getX() % SudokuData.TILE_DIMENSION;
+        int x_dif = (int)event.getY() % Data.TILE_DIMENSION;
+        int y_dif = (int)event.getX() % Data.TILE_DIMENSION;
         return x_dif >=4 && y_dif >=4;
     }
 
@@ -61,8 +68,8 @@ public class Mouse implements UserInterface {
         if (!(event instanceof MouseEvent)) return true;
         MouseEvent mouseEvent = (MouseEvent)event;
 
-        x = (int)mouseEvent.getY() / SudokuData.TILE_DIMENSION;
-        y = (int)mouseEvent.getX() / SudokuData.TILE_DIMENSION;
+        x = (int)mouseEvent.getY() / Data.TILE_DIMENSION;
+        y = (int)mouseEvent.getX() / Data.TILE_DIMENSION;
 
         return (!isOnTile(mouseEvent));
     }

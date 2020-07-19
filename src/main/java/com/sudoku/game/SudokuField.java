@@ -1,6 +1,6 @@
 package com.sudoku.game;
 
-import com.sudoku.data.SudokuData;
+import com.sudoku.data.Data;
 import com.sudoku.user.UserInterface;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,7 +14,7 @@ public class SudokuField extends Canvas {
     private final Game game;
 
     public SudokuField(UserInterface userInterface, Game game) {
-        super(SudokuData.DIMENSION, SudokuData.DIMENSION);
+        super(Data.DIMENSION, Data.DIMENSION);
         this.userInterface = userInterface;
         this.game = game;
         initField();

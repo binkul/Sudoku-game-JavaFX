@@ -14,6 +14,11 @@ public class Style {
                         "    -fx-font-size: 16px;" +
                         "    -fx-font-weight: bold;" +
                         "    -fx-text-fill: black;";
+    public static final String BTN_NUMBER_STYLE =
+                        "    -fx-font-family: Arial;" +
+                        "    -fx-font-size: 36px;" +
+                        "    -fx-font-weight: bold;" +
+                        "    -fx-text-fill: blue;";
     public static final String BOTTOM_BOX_STYLE =
                         "   -fx-alignment: center;" +
                         "   -fx-padding: 20 0 20 0;";

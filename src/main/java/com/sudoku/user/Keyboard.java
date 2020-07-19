@@ -10,4 +10,9 @@ public class Keyboard implements UserInterface {
     public void moveOver(Object event) {
 
     }
+
+    @Override
+    public void setValue(Integer value) {
+
+    }
 }
