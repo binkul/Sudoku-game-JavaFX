@@ -23,14 +23,13 @@ public class Mouse implements UserInterface {
     public void press(Object event) {
         if (isMouseValid(event)) return;
 
-        int number = game.getSudoku()[x][y];
         boolean[] numbers = Validator.getUniqueNumbers(game.getSudoku(), x, y);
 
         NumberForm numberForm = new NumberForm(numbers, this);
         value = 0;
         numberForm.open();
-        game.getSudoku()[x][y] = value;
-        game.getGraphicDriver().drawCrossBar(game.getSudokuField().getCanvas(), x, y);
+        game.getSudoku().setNumber(x, y, value);
+        game.getGraphicDriver().drawSudokuField(game.getSudokuGraphic().getCanvas(), x, y);
     }
 
     @Override
@@ -40,15 +39,15 @@ public class Mouse implements UserInterface {
         if (x != x_old || y != y_old) {
             x_old = x;
             y_old = y;
-            game.getGraphicDriver().drawCrossBar(game.getSudokuField().getCanvas(), x, y);
+            game.getGraphicDriver().drawSudokuField(game.getSudokuGraphic().getCanvas(), x, y);
         }
     }
 
     @Override
     public void exited(Object event) {
-        game.getGraphicDriver().clear(game.getSudokuField().getCanvas());
-        game.getGraphicDriver().drawNet(game.getSudokuField().getCanvas());
-        game.getGraphicDriver().printNumbers(game.getSudokuField().getCanvas());
+        game.getGraphicDriver().clear(game.getSudokuGraphic().getCanvas());
+        game.getGraphicDriver().drawNet(game.getSudokuGraphic().getCanvas());
+        game.getGraphicDriver().printNumbers(game.getSudokuGraphic().getCanvas());
         x_old = -1;
         y_old = -1;
     }

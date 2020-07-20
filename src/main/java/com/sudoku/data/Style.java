@@ -19,8 +19,11 @@ public class Style {
                         "    -fx-font-size: 36px;" +
                         "    -fx-font-weight: bold;" +
                         "    -fx-text-fill: blue;";
-    public static final String BOTTOM_BOX_STYLE =
-                        "   -fx-alignment: center;" +
+    public static final String BOTTOM_RIGHT_BOX_STYLE =
+                        "   -fx-alignment: top-right;" +
+                        "   -fx-padding: 20 0 20 0;";
+    public static final String BOTTOM_LEFT_BOX_STYLE =
+                        "   -fx-alignment: top-left;" +
                         "   -fx-padding: 20 0 20 0;";
     public static final String TOP_BOX_STYLE =
                         "    -fx-alignment: top-center;" +
@@ -39,20 +42,18 @@ public class Style {
                         "    -fx-border-width: 2px;" +
                         "    -fx-border-color: darkgreen;" +
                         "    -fx-border-radius: 5;";
-    public static final String LABEL_VALUE_STYLE =
-                        "    -fx-text-fill: white;" +
-                        "    -fx-padding: 2 5 2 0;" +
+    public static final String LABEL_LEGEND_STYLE =
+                        "    -fx-padding: 0 0 0 0;" +
                         "    -fx-font-family: Arial;" +
                         "    -fx-font-weight: bold;" +
-                        "    -fx-font-size: 32px;" +
-                        "    -fx-text-alignment: right;";
-    public static final String LABEL_NAME_STYLE =
-                        "    -fx-text-fill: white;" +
-                        "    -fx-padding: 2 5 2 5;" +
+                        "    -fx-font-size: 16px;" +
+                        "    -fx-text-alignment: left;";
+    public static final String LABEL_LEGEND_MIDDLE_STYLE =
+                        "    -fx-padding: 0 0 0 5;" +
                         "    -fx-font-family: Arial;" +
                         "    -fx-font-weight: bold;" +
-                        "    -fx-font-size: 32px;" +
-                        "    -fx-text-alignment: right;";
+                        "    -fx-font-size: 16px;" +
+                        "    -fx-text-alignment: left;";
     public static final String LABEL_END_STYLE =
                         "    -fx-text-fill: red;" +
                         "    -fx-background-color: khaki;" +

@@ -1,6 +1,7 @@
-package com.sudoku.game;
+package com.sudoku.graphic;
 
 import com.sudoku.data.Data;
+import com.sudoku.game.Game;
 import com.sudoku.user.UserInterface;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,11 +10,11 @@ import javafx.scene.input.MouseEvent;
 import lombok.Getter;
 
 @Getter
-public class SudokuField extends Canvas {
+public class SudokuGraphic extends Canvas {
     private final UserInterface userInterface;
     private final Game game;
 
-    public SudokuField(UserInterface userInterface, Game game) {
+    public SudokuGraphic(UserInterface userInterface, Game game) {
         super(Data.DIMENSION, Data.DIMENSION);
         this.userInterface = userInterface;
         this.game = game;

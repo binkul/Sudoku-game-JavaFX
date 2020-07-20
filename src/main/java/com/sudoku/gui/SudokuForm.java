@@ -1,8 +1,8 @@
 package com.sudoku.gui;
 
+import com.sudoku.data.Data;
 import com.sudoku.data.FileData;
 import com.sudoku.data.Style;
-import com.sudoku.data.Data;
 import com.sudoku.file.PathDriver;
 import com.sudoku.game.Game;
 import javafx.geometry.Pos;
@@ -13,9 +13,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.Getter;
 
+@Getter
 public class SudokuForm {
     private final Game game;
 
@@ -24,6 +27,7 @@ public class SudokuForm {
     private final MenuItem menuNew = new MenuItem("New sudoku");
     private final MenuItem menuTemplates = new MenuItem("Templates");
     private final MenuItem menuRandom = new MenuItem("Random sudoku");
+    private final Label lblStatus = new Label();
 
     public SudokuForm(Game game) {
         this.game = game;
@@ -62,7 +66,7 @@ public class SudokuForm {
 
         // scene and event for keyboard
         Scene scene = new Scene(root);
-        scene.setOnKeyPressed(e -> game.getSudokuField().enterKeyPressed(e));
+        scene.setOnKeyPressed(e -> game.getSudokuGraphic().enterKeyPressed(e));
 
         return scene;
     }
@@ -109,13 +113,58 @@ public class SudokuForm {
 
         GridPane gridPane = new GridPane();
         gridPane.setVgap(10);
-        gridPane.add(game.getSudokuField().getCanvas(), 0, 0, 2, 1);
+        gridPane.add(game.getSudokuGraphic().getCanvas(), 0, 0, 2, 1);
         gridPane.add(btnResolve, 0, 1, 1,1);
         gridPane.add(exitBox, 1, 1, 1,1);
+        gridPane.add(createLeftLegend(), 0, 2, 1, 1);
+        gridPane.add(createRightLegend(), 1, 2, 1, 1);
 
         mainBox.getChildren().add(gridPane);
 
         return mainBox;
     }
 
+    private VBox createRightLegend() {
+        VBox bottomRight = new VBox();
+        bottomRight.setStyle(Style.BOTTOM_RIGHT_BOX_STYLE);
+
+        Label lblUser = new Label("User entered numbers");
+        lblUser.setTextFill(Data.FONT_USER_COLOR);
+        lblUser.setStyle(Style.LABEL_LEGEND_STYLE);
+
+        Label lblSingle = new Label("Single algorithm numbers");
+        lblSingle.setTextFill(Data.FONT_SINGLE_ALGORITHM_COLOR);
+        lblSingle.setStyle(Style.LABEL_LEGEND_MIDDLE_STYLE);
+
+        Label lblStandard = new Label("Standard algorithm numbers");
+        lblStandard.setTextFill(Data.FONT_STANDARD_ALGORITHM_COLOR);
+        lblStandard.setStyle(Style.LABEL_LEGEND_MIDDLE_STYLE);
+
+        Label lblBack = new Label("BackTrack algorithm numbers");
+        lblBack.setTextFill(Data.FONT_BACK_ALGORITHM_COLOR);
+        lblBack.setStyle(Style.LABEL_LEGEND_MIDDLE_STYLE);
+
+        bottomRight.getChildren().addAll(lblUser, lblSingle, lblStandard, lblBack);
+
+        return bottomRight;
+    }
+
+    private VBox createLeftLegend() {
+        VBox bottomLeft = new VBox();
+        bottomLeft.setStyle(Style.BOTTOM_LEFT_BOX_STYLE);
+
+        Label lblInfo = new Label("Status:");
+        lblInfo.setTextFill(Color.BLACK);
+        lblInfo.setStyle(Style.LABEL_LEGEND_STYLE);
+        printStatus(Color.BLACK, "Ready");
+        bottomLeft.getChildren().addAll(lblInfo, lblStatus);
+
+        return bottomLeft;
+    }
+
+    private void printStatus(Color color, String message) {
+        lblStatus.setTextFill(color);
+        lblStatus.setStyle(Style.LABEL_LEGEND_STYLE);
+        lblStatus.setText(message);
+    }
 }

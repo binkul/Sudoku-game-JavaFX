@@ -1,11 +1,13 @@
-package com.sudoku.engine;
+package com.sudoku.graphic;
 
 import com.sudoku.data.Data;
 import com.sudoku.game.Game;
+import com.sudoku.sudoku.SudokuElement;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.util.List;
 
 public class GraphicDriver {
     private final Game game;
@@ -19,7 +21,7 @@ public class GraphicDriver {
     }
 
     public void drawNet(Canvas canvas) {
-        canvas.getGraphicsContext2D().setStroke(Color.DARKBLUE);
+        canvas.getGraphicsContext2D().setStroke(Data.LINE_COLOR);
         canvas.getGraphicsContext2D().setLineWidth(Data.LINE_WIDTH);
 
         drawVertLines(canvas);
@@ -38,8 +40,8 @@ public class GraphicDriver {
         }
     }
 
-    public void drawCrossBar(Canvas canvas, int x, int y) {
-        canvas.getGraphicsContext2D().setFill(Color.LIGHTGREEN);
+    public void drawSudokuField(Canvas canvas, int x, int y) {
+        canvas.getGraphicsContext2D().setFill(Data.BACKBOARD_COLOR);
 
         clear(canvas);
         drawVertColumnBar(canvas, y);
@@ -67,14 +69,13 @@ public class GraphicDriver {
     }
 
     private void drawPointer(Canvas canvas, int x, int y) {
-        canvas.getGraphicsContext2D().setStroke(Color.RED);
+        canvas.getGraphicsContext2D().setStroke(Data.POINTER_COLOR);
         int x_dif = y * Data.TILE_DIMENSION + 2;
         int y_dif = x * Data.TILE_DIMENSION + 2;
         canvas.getGraphicsContext2D().strokeRect(x_dif, y_dif, Data.TILE_DIMENSION, Data.TILE_DIMENSION);
     }
 
     public void printNumbers(Canvas canvas) {
-        canvas.getGraphicsContext2D().setFill(Color.BLACK);
         canvas.getGraphicsContext2D().setFont(Font.font("Arial", FontWeight.BOLD, 48));
 
         for (int row = 0; row < Data.SIZE; row++) {
@@ -83,9 +84,14 @@ public class GraphicDriver {
     }
 
     private void printRow(Canvas canvas, int row) {
+        List<SudokuElement> elements = game.getSudoku().getOneRowElements(row);
+
         for (int column = 0; column < Data.SIZE; column++) {
-            int number = game.getSudoku()[row][column];
-            if (number == 0) continue;
+            SudokuElement element = elements.get(column);
+            int number = element.getNumber();
+            canvas.getGraphicsContext2D().setFill(element.getFontColor());
+
+            if (number == Data.EMPTY) continue;
             canvas.getGraphicsContext2D().fillText(
                     String.valueOf(number),
                     Data.TEXT_X_START + (column * Data.TILE_DIMENSION),
